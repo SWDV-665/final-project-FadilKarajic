@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Weather</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="homePage">
+  <ion-grid *ngIf="statistics">
+    <ion-row> 
+        <ion-col>
+          <h2 class="location">{{statistics.city.name}},{{statistics.city.country}}</h2>
+          <ion-item><h2 class="location">Population: {{statistics.city.population}}</h2></ion-item>
+          <ion-item><h2 class="location">Latitude: {{statistics.city.coord.lat}}</h2></ion-item>
+          <ion-item><h2 class="location">Longitude: {{statistics.city.coord.lon}}</h2></ion-item>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="weather">
+    <ion-row> 
+      <ion-col>
+          <ion-item>
+      <div class ="icon">
+          <img src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png">
+        </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item><h2 class="mainTemp">Temp: {{weather.main.temp}}°F</h2></ion-item>
+        <ion-item><h2 class="maxTemp">High: {{weather.main.temp_max}}°F</h2></ion-item>
+        <ion-item><h2 class="minTemp">Low: {{weather.main.temp_min}}°F</h2></ion-item>
+        <ion-item><h2 class="humidity">Humidity: {{weather.main.humidity}}%</h2></ion-item>
+      </ion-col>
+    </ion-row>
+    <button (click)="shareItem(weather)" ion-button color="light" icon-start>
+      <ion-icon name="share"></ion-icon>
+      Share Weather
+    </button>
+  </ion-grid>
+</ion-content>
