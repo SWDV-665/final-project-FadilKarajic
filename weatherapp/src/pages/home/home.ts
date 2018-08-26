@@ -16,17 +16,19 @@ import { InputDialogServiceProvider } from '../../providers/input-dialog-service
 export class HomePage {
   currentWeather:any;
   locationInfo:any;
+  
   location:{
     city:string,
     country:string
   }
-  constructor(public navCtrl: NavController,public weatherProvider: WeatherProvider,private storage:Storage,private socialSharing:SocialSharing,
+  constructor(public navCtrl: NavController,public weatherProvider: WeatherProvider,private localStorage:Storage,private socialSharing:SocialSharing,
     private toastCtrl:ToastController, public statisticsProvider :StatisticsProvider,public inputDialogService: InputDialogServiceProvider) {
 
   }
   //Get the location otherwise set the location to default location
+  //Uses weather provider
   ionViewWillEnter(){
-    this.storage.get('location').then((val)=>{
+    this.localStorage.get('location').then((val)=>{
       if (val !=null){
         this.location=JSON.parse(val);
       }else{
@@ -45,8 +47,9 @@ export class HomePage {
     }
 
     //Check location if not null pull info about the location
+    //Uses statistics provider - pulls forecast instead of weather
   ionViewDidEnter(){
-    this.storage.get('location').then((val)=>{
+    this.localStorage.get('location').then((val)=>{
       if (val !=null){
         this.location=JSON.parse(val);
       }
@@ -57,7 +60,7 @@ export class HomePage {
       });
     });
 }
-    //Share the weather
+    //Sharing the weather, main temperature, max and min temperatures
     shareWeather(currentWeather) {
       console.log("Sharing Item - ", currentWeather.main.temp+','+currentWeather.main.temp_max+','+currentWeather.main.temp_min);
       const toast = this.toastCtrl.create({
@@ -71,17 +74,15 @@ export class HomePage {
       let subject = "Shared via Weather app";
   
       this.socialSharing.share(message, subject).then(() => {
-        // Sharing via email is possible
         console.log("Shared successfully!");
       }).catch((error) => {
         console.error("Error while sharing ", error);
       });    
   
     }
-
+    //Not functional
     changeLocation() {
       console.log("Changing location");
-      this.inputDialogService.showPrompt();
+      this.inputDialogService.showPrompt(location);
     }
-   
 }

@@ -28,13 +28,13 @@ import { SettingsProvider } from '../providers/settings/settings';
     ContactPage,
     HomePage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    
-    IonicStorageModule.forRoot(),
+   
+   IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

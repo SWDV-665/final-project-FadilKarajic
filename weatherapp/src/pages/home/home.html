@@ -8,10 +8,10 @@
   <ion-grid *ngIf="locationInfo">
     <ion-row> 
         <ion-col>
-          <h2 class="location">{{locationInfo.city.name}},{{locationInfo.city.country}}</h2>
-          <ion-item><h2 class="location">Population: {{locationInfo.city.population}}</h2></ion-item>
-          <ion-item><h2 class="location">Latitude: {{locationInfo.city.coord.lat}}</h2></ion-item>
-          <ion-item><h2 class="location">Longitude: {{locationInfo.city.coord.lon}}</h2></ion-item>
+          <h2 class="nameCountry">{{locationInfo.city.name}},{{locationInfo.city.country}}</h2>
+          <ion-item><h2 class="population">Population: {{locationInfo.city.population}}</h2></ion-item>
+          <ion-item><h2 class="latitude">Latitude: {{locationInfo.city.coord.lat}}</h2></ion-item>
+          <ion-item><h2 class="longitude">Longitude: {{locationInfo.city.coord.lon}}</h2></ion-item>
         </ion-col>
       </ion-row>
   </ion-grid>
@@ -41,6 +41,5 @@
   <ion-fab bottom right>
     <button (click)="changeLocation()" ion-fab mini><ion-icon name="add"></ion-icon></button>
 </ion-fab>  
-
 </ion-grid>
 </ion-content>

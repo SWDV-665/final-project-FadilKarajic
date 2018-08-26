@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import{HomePage} from '../home/home';
+//import { NativeStorage } from '@ionic-native/native-storage';
 
 /**
  * Generated class for the SettingsPage page.
@@ -19,9 +20,9 @@ export class SettingsPage {
   city:string;
   country:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage:Storage) {
-    //If location not null set new location else the location will be defaul location
-    this.storage.get('location').then((val)=>{
+  constructor(public navCtrl: NavController, public navParams: NavParams,private localStorage:Storage) {
+    //If location not null set new location else the location will be default location
+    this.localStorage.get('location').then((val)=>{
       if (val !=null){
         let location=JSON.parse(val);
         this.city=location.city;
@@ -36,13 +37,13 @@ export class SettingsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
-  //Save user input and save it to storage
+  //Save user input to storage and redirect to HomePage
   saveForm(){
     let location={
       city: this.city,
       country: this.country
     }
-    this.storage.set('location',JSON.stringify(location));
+    this.localStorage.set('location',JSON.stringify(location));
     this.navCtrl.push(HomePage);
   }
 }

@@ -3,25 +3,23 @@ import { Injectable } from '@angular/core';
 import {AlertController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import{HomePage} from '../../pages/home/home';
-
+import { NavController} from 'ionic-angular';
 /*
-  Generated class for the InputDialogServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
+Needs work, currently not working
 */
+
 @Injectable()
 export class InputDialogServiceProvider {
   city:string;
   country:string;
-  constructor(public alertCtrl: AlertController,private storage:Storage) {
+  constructor(public localStorage:Storage,public alertCtrl: AlertController) {
     console.log('Hello InputDialogServiceProvider Provider');
   }
 
   showPrompt(location) {
     const prompt = this.alertCtrl.create({
-      title: location ? 'Edit Location' : 'Change Location',
-      message: location ? "Please edit location..." : "Please enter location...",
+      title:'Change Location',
+      message:"Please enter location...",
       inputs: [
         {
           name: 'name',
@@ -37,7 +35,7 @@ export class InputDialogServiceProvider {
       buttons: [
         {
           text: 'Cancel',
-          handler: location => {
+          handler: () => {
             console.log('Cancel clicked');
           }
         },
@@ -45,18 +43,9 @@ export class InputDialogServiceProvider {
           text: 'Save',
           handler: location => {
             console.log('Saved clicked', location);
-            this.storage.get('location').then((val)=>{
-              if (val !=null){
-                let location={
-                  city: this.city,
-                  country: this.country
-                }
-              }else{
-                this.city='Chicago';
-                this.country='US';
-              }
-            });
-
+            
+            this.localStorage.set('location',JSON.stringify(location));
+            
           }
         }
       ]

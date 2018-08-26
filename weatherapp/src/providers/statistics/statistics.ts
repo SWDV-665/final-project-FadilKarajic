@@ -16,10 +16,9 @@ export class StatisticsProvider {
 
   constructor(public http: Http) {
     console.log('Hello StatisticsProvider Provider');
+    //Uses "forecast" call to pull information about the location such as name, lat/lon
       this.url='http://api.openweathermap.org/data/2.5/forecast?q=';
   }
-
-
   
   getLocationInfo(city,country){
     return this.http.get(this.url + city +','+country+'&appid='+this.APIKEY)

@@ -18,8 +18,9 @@ export class WeatherProvider {
 
   constructor(public http: Http) {
     console.log('Hello WeatherProvider Provider');
+    //Uses "weather" call to pull the information about weather
     this.url='http://api.openweathermap.org/data/2.5/weather?q=';
-    
+  
   }
 
   getWeatherInfo(city,country){
