@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {AlertController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
-import{HomePage} from '../../pages/home/home';
-import { NavController} from 'ionic-angular';
+//import{HomePage} from '../../pages/home/home';
+//import { NavController} from 'ionic-angular';
 /*
-Needs work, currently not working
+Needs work, need to figure out how to pass location object to local storage
 */
 
 @Injectable()
@@ -43,9 +43,7 @@ export class InputDialogServiceProvider {
           text: 'Save',
           handler: location => {
             console.log('Saved clicked', location);
-            
             this.localStorage.set('location',JSON.stringify(location));
-            
           }
         }
       ]

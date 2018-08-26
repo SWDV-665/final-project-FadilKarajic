@@ -22,6 +22,7 @@ export class WeatherProvider {
     this.url='http://api.openweathermap.org/data/2.5/weather?q=';
   
   }
+ 
 
   getWeatherInfo(city,country){
     return this.http.get(this.url + city +','+country+'&units=imperial'+'&appid='+this.APIKEY)
