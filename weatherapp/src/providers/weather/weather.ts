@@ -22,26 +22,13 @@ export class WeatherProvider {
     
   }
 
-  getWeather(city,country){
+  getWeatherInfo(city,country){
     return this.http.get(this.url + city +','+country+'&units=imperial'+'&appid='+this.APIKEY)
     
     .map(res=>res.json());
   } 
 } 
 
-/* this.geolocation.getCurrentPosition().then((resp) => {
-  let lat= resp.coords.latitude;
-  let lon= resp.coords.longitude;
- }).catch((error) => {
-   console.log('Error getting location', error);
- });
-}
-
-getWeather(lat,lon){ 
-return this.http.get(this.url + lat +'&'+lon+'&units=imperial'+'&appid='+this.APIKEY)
-.map(res=>res.json());
-} 
-  */
 
   
 

@@ -21,7 +21,7 @@ export class StatisticsProvider {
 
 
   
-  getStatistics(city,country){
+  getLocationInfo(city,country){
     return this.http.get(this.url + city +','+country+'&appid='+this.APIKEY)
   
     .map(res=>res.json());

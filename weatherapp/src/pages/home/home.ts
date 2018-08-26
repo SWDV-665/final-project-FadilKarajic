@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import{WeatherProvider} from '../../providers/weather/weather';
-import { CompileStylesheetMetadata } from '../../../node_modules/@angular/compiler';
 import{Storage} from '@ionic/storage';
 import{SocialSharing} from '@ionic-native/social-sharing';
 import { ToastController } from 'ionic-angular';
 import { StatisticsProvider } from '../../providers/statistics/statistics';
+import { InputDialogServiceProvider } from '../../providers/input-dialog-service/input-dialog-service';
 
 @Component({
   selector: 'page-home',
@@ -14,17 +14,17 @@ import { StatisticsProvider } from '../../providers/statistics/statistics';
 
 
 export class HomePage {
-  weather:any;
-  statistics:any;
+  currentWeather:any;
+  locationInfo:any;
   location:{
     city:string,
     country:string
   }
   constructor(public navCtrl: NavController,public weatherProvider: WeatherProvider,private storage:Storage,private socialSharing:SocialSharing,
-    private toastCtrl:ToastController, public statisticsProvider :StatisticsProvider) {
+    private toastCtrl:ToastController, public statisticsProvider :StatisticsProvider,public inputDialogService: InputDialogServiceProvider) {
 
   }
-  //If there is no location set then set the location city and country
+  //Get the location otherwise set the location to default location
   ionViewWillEnter(){
     this.storage.get('location').then((val)=>{
       if (val !=null){
@@ -35,38 +35,39 @@ export class HomePage {
           country:'US'
         }
       }
-      this.weatherProvider.getWeather(this.location.city,this.location.country)
-      .subscribe(weather=> {
-        console.log(weather);
-        this.weather=weather;
+      this.weatherProvider.getWeatherInfo(this.location.city,this.location.country)
+      .subscribe(currentWeather=> {
+        console.log(currentWeather);
+        this.currentWeather=currentWeather;
       });
       
     });
     }
+
+    //Check location if not null pull info about the location
   ionViewDidEnter(){
     this.storage.get('location').then((val)=>{
       if (val !=null){
         this.location=JSON.parse(val);
       }
-      
-    this.statisticsProvider.getStatistics(this.location.city,this.location.country)
-      .subscribe(statistics=> {
-        console.log(statistics);
-        this.statistics=statistics;
+    this.statisticsProvider.getLocationInfo(this.location.city,this.location.country)
+      .subscribe(locationInfo=> {
+        console.log(locationInfo);
+        this.locationInfo=locationInfo;
       });
     });
 }
     //Share the weather
-    shareItem(weather) {
-      console.log("Sharing Item - ", weather);
+    shareWeather(currentWeather) {
+      console.log("Sharing Item - ", currentWeather.main.temp+','+currentWeather.main.temp_max+','+currentWeather.main.temp_min);
       const toast = this.toastCtrl.create({
-        message: 'Sharing Weather - ' + weather + " ...",
+        message: 'Sharing Weather - ' + currentWeather.main.temp + " ...",
         duration: 3000
       });
   
       toast.present();
   
-      let message = "Weather: " + weather;
+      let message = "Weather: " + currentWeather.main.temp+','+currentWeather.main.temp_max+','+currentWeather.main.temp_min;
       let subject = "Shared via Weather app";
   
       this.socialSharing.share(message, subject).then(() => {
@@ -77,5 +78,10 @@ export class HomePage {
       });    
   
     }
-    
+
+    changeLocation() {
+      console.log("Changing location");
+      this.inputDialogService.showPrompt();
+    }
+   
 }

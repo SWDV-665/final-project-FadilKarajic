@@ -20,7 +20,7 @@ export class SettingsPage {
   country:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage:Storage) {
-
+    //If location not null set new location else the location will be defaul location
     this.storage.get('location').then((val)=>{
       if (val !=null){
         let location=JSON.parse(val);
@@ -36,6 +36,7 @@ export class SettingsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
+  //Save user input and save it to storage
   saveForm(){
     let location={
       city: this.city,

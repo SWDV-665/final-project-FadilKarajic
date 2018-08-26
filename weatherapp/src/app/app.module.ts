@@ -17,6 +17,9 @@ import {HttpModule} from '@angular/http';
 import{IonicStorageModule} from '@ionic/storage';
 import{SocialSharing} from '@ionic-native/social-sharing';
 import { StatisticsProvider } from '../providers/statistics/statistics';
+import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
+import { SettingsProvider } from '../providers/settings/settings';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { StatisticsProvider } from '../providers/statistics/statistics';
     WeatherProvider,
     WeatherProvider,
     SocialSharing,
-    StatisticsProvider
+    StatisticsProvider,
+    InputDialogServiceProvider,
+    SettingsProvider,
+   
 
   ]
 })
